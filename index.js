@@ -8,6 +8,9 @@ import todoRoutes from './routes/todos.js'
 import registerRoutes from './routes/register.js'
 
 const app = express()
+app.get('/test-view', (req, res) => {
+    res.render('login'); 
+})
 const Port = process.env.PORT || 3000
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
