@@ -2,17 +2,20 @@ import express from 'express'
 import pool from './db.js'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
+import path from 'path'
+import { fileURLToPath } from 'url'
 
 const app = express()
 const Port = 3000
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser())
-app.set('view engine', 'ejs')
-app.set('views', './views')
-app.use(express.static('public'))
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+app.use(express.static(path.join(__dirname, 'public')));
 
 import authRoutes from './routes/auth.js'
 import todoRoutes from './routes/todos.js'
