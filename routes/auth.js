@@ -1,16 +1,16 @@
 import express from 'express'
 import pool from '../db.js'
 import sessions from '../sessionStore.js'
-import path from 'path'
-import { fileURLToPath } from 'url'
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const router = express.Router()
 
 router.get('/login', (req, res) => {
-    res.render(path.resolve(__dirname, '../views/login.ejs'))
+    res.render(path.resolve(__dirname, '../views/login.ejs'));
 })
 
 router.post('/login', async (req, res) => {
