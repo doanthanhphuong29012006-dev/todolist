@@ -1,12 +1,14 @@
 import express from 'express'
 import path from 'path'
 import { fileURLToPath } from 'url'
-import pool from './db.js'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
+import authRoutes from './routes/auth.js'
+import todoRoutes from './routes/todos.js'
+import registerRoutes from './routes/register.js'
 
 const app = express()
-const Port = 3000
+const Port = process.env.PORT || 3000
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
@@ -18,9 +20,6 @@ app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public')))
 
-import authRoutes from './routes/auth.js'
-import todoRoutes from './routes/todos.js'
-import registerRoutes from './routes/register.js'
 app.use('/', authRoutes)
 app.use('/register', registerRoutes)
 app.use('/todos', todoRoutes)
