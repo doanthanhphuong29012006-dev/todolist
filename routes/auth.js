@@ -1,16 +1,11 @@
 import express from 'express'
 import pool from '../db.js'
 import sessions from '../sessionStore.js'
-import path from 'path';
-import { fileURLToPath } from 'url';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 const router = express.Router()
 
 router.get('/login', (req, res) => {
-    res.render(path.resolve(__dirname, '../views/login.ejs'));
+    res.render('login');
 })
 
 router.post('/login', async (req, res) => {
@@ -27,7 +22,7 @@ router.post('/login', async (req, res) => {
             return res.redirect('/todos')
             return
         }
-        res.render('login.ejs', { error: 'Tài khoản hoặc mật khẩu không hợp lệ'})
+        res.render('login', { error: 'Tài khoản hoặc mật khẩu không hợp lệ'})
     } catch (err) {
         res.status(500).send('Lỗi Server')
     }
