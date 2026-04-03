@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>To Do List</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <title>Login</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-white shadow-sm" style="position: absolute; top: 0; left: 0; width: 100%;">
+        <div class="container-fluid px-5 d-flex justify-content-between">
+            
+            <a class="navbar-brand fw-bold" href="/todos" style="color: rgb(127, 216, 216); font-size: 24px;"></a>
+            
+            <div class="d-flex align-items-center">
+                <span class="me-3 text-secondary" style="font-size: 15px;">
+                    Chào, <strong style="color: #333;"><%= user.username %></strong>!
+                </span>
+                <a href="/logout" class="btn btn-outline-danger btn-sm fw-bold" style="border-radius: 8px;">
+                    Đăng xuất
+                </a>
+            </div>
+
+        </div>
+    </nav>
+
+    <div class="container">
+        <h2>Danh sách việc cần làm</h2>
+
+        <form action="/todos" method="POST">
+            <div class="input-group">
+                <input  type="text"
+                        name="title"
+                        placeholder="Nhập công việc mới"
+                        class="input-text"
+                        required
+                >
+
+                <button type="submit" class="add-button">Thêm</button>
+            </div>
+        </form>
+
+        <ul class="job-list">
+            <% if (todos.length === 0) { %>
+                <p class="empty-text">Không có công việc nào để hiển thị</p>
+            <% } else { %>
+                <% todos.forEach(todo => { %>
+                    <li class="job-item">
+                        <form action="/todos/<%= todo.id  %>/toggle" method="POST">
+                            <input  type="checkbox"
+                            class="custom-checkbox"
+                                    onChange="this.form.submit()"
+                                    <%= todo.completed ? 'checked' : '' %>
+                            >
+                        </form>
+
+                        <span class="job-text <%= todo.completed ? 'completed' : '' %>">
+                            <%= todo.title %>
+                        </span>
+
+                        <form action="/todos/<%= todo.id %>/delete" method="POST">
+                            <button type="submit" class="delete-button" onclick="return confirm('Bạn chắn chắn muốn xóa?')">x</button>
+                        </form>
+                    </li>
+                <% }) %>
+            <% } %>
+        </ul>
+    </div>
+
+</body>
+</html>

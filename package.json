@@ -1,0 +1,30 @@
+{
+  "name": "todolist",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/doanthanhphuong29012006-dev/todolist#readme",
+  "bugs": {
+    "url": "https://github.com/doanthanhphuong29012006-dev/todolist/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/doanthanhphuong29012006-dev/todolist.git"
+  },
+  "license": "ISC",
+  "author": "PhuongDT",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node --watch index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.8",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.6",
+    "dotenv": "^17.3.1",
+    "ejs": "^5.0.1",
+    "express": "^5.2.1",
+    "pg": "^8.20.0"
+  }
+}
