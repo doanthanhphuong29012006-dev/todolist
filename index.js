@@ -4,6 +4,7 @@ import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import path from 'path'
 import { fileURLToPath } from 'url'
+console.log("Đường dẫn hiện tại nè:", __dirname)
 
 const app = express()
 const Port = 3000
