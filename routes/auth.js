@@ -5,7 +5,7 @@ import sessions from '../sessionStore.js'
 const router = express.Router()
 
 router.get('/login', (req, res) => {
-    res.render('login')
+    res.render('login.ejs')
 })
 
 router.post('/login', async (req, res) => {
@@ -22,7 +22,7 @@ router.post('/login', async (req, res) => {
             return res.redirect('/todos')
             return
         }
-        res.render('login', { error: 'Tài khoản hoặc mật khẩu không hợp lệ'})
+        res.render('login.ejs', { error: 'Tài khoản hoặc mật khẩu không hợp lệ'})
     } catch (err) {
         res.status(500).send('Lỗi Server')
     }
