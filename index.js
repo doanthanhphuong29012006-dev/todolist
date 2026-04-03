@@ -19,9 +19,14 @@ app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser())
-app.set('views', path.join(__dirname, 'views'))
+app.set('views', path.resolve(__dirname, 'views'))
 app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public')))
+
+app.use((req, res, next) => {
+    req.app.set('views', path.resolve(__dirname, 'views'));
+    next();
+})
 
 app.use('/', authRoutes)
 app.use('/register', registerRoutes)
