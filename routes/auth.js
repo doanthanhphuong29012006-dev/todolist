@@ -18,8 +18,7 @@ router.post('/login', async (req, res) => {
             const sessionId = Date.now().toString()
             sessions[sessionId] = { user: user.id }
 
-            res.cookie('sessionId', sessionId, { httpOnly: true, maxAge: 3600000 })
-            return res.redirect('/todos')
+            res.setHeader('Set-Cookie', `sessionId=${sessionId}; max-age=3600; httpOnly`).redirect('/login')
             return
         }
         res.render('login', { error: 'Tài khoản hoặc mật khẩu không hợp lệ'})
