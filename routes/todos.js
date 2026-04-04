@@ -78,4 +78,23 @@ router.post('/:id/delete', async (req, res) => {
   }
 })
 
+router.post('/:id/update', async (req, res) => {
+  const session = sessions[req.cookies.sessionId]
+  if (!session) {
+    return res.redirect('/login')
+  }
+
+  try {
+    const { id } = req.params
+    const { title } = req.body
+
+    await pool.query('UPDATE todos SET title = $1 WHERE id = $2 AND user_id = $3', [title, id, session.user])
+
+    res.redirect('/todos')
+  } catch (err) {
+    console.error(error.message)
+    res.status(500).send('Lỗi Server')
+  }
+})
+
 export default router
