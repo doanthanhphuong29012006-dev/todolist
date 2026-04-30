@@ -3,7 +3,7 @@ import * as registerController from '../src/app/controllers/register.controller.
 
 const router = express.Router();
 
-router.get('/', registerController.renderRegister);
+//router.get('/', registerController.renderRegister);
 router.post('/', registerController.createNewUser);
 
 export default router;

@@ -1,25 +1,32 @@
 import pool from '../../../config/db.js';
 import * as todoService from '../services/todo.service.js';
 
-export async function renderTodos (req, res) {
+export async function getTodos (req, res) {
     try {
         const userId = req.user.userId;
         const userResult = await pool.query('SELECT * FROM users WHERE id = $1', [userId]);
         const user = userResult.rows[0];
 
         if (!user) {
-            return res.redirect('/login');
+            return res.status(401).json({ 
+                success: false, 
+                error: 'Không tìm thấy người dùng' 
+            });
         }
 
         const todos = await todoService.getTodoUserById(userId);
 
-        res.render('tasks', {
-            todos: todos,
-            user: user
+        res.status(200).json({
+            success: true,
+            data: todos,
+            user: { user: user.username }
         });
     } catch (err) {
         console.error(err.message);
-        res.status(500).send('Lỗi Server');
+        res.status(500).json({ 
+            success: false, 
+            error: 'Lỗi Server' 
+        });
     }
 }
 
@@ -29,10 +36,16 @@ export async function createNewTodo (req, res) {
         const userId = req.user.userId;
 
         await todoService.createTodo(title, userId);
-        res.redirect('/todos');
+        res.status(201).json({ 
+            success: true, 
+            message: 'Thêm công việc thành công' 
+        });
     } catch (err) {
         console.error(err.message);
-        res.status(500).send('Lỗi Server');
+        res.status(500).json({ 
+            success: false, 
+            error: 'Lỗi Server' 
+        });
     }
 };
 
@@ -43,10 +56,16 @@ export async function updateNewTodo (req, res) {
         const userId = req.user.userId;
 
         await todoService.updateTodo(id, title, userId);
-        res.redirect('/todos');
+        res.status(200).json({ 
+            success: true, 
+            message: 'Cập nhật thành công' 
+        });
     } catch (err) {
         console.error(err.message);
-        res.status(500).send('Lỗi Server');
+        res.status(500).json({ 
+            success: false, 
+            error: 'Lỗi Server' 
+        });
     }
 };
 
@@ -56,10 +75,16 @@ export async function deleteTodoById (req, res) {
         const userId = req.user.userId;
 
         await todoService.deleteTodo(id, userId);
-        res.redirect('/todos');
+        res.status(200).json({ 
+            success: true, 
+            message: 'Xóa thành công' 
+        });
     } catch (err) {
         console.error(err.message);
-        res.status(500).send('Lỗi Server');
+        res.status(500).json({ 
+            success: false, 
+            error: 'Lỗi Server' 
+        });
     }
 };
 
@@ -69,9 +94,15 @@ export async function toggleTodoById (req, res) {
         const userId = req.user.userId;
 
         await todoService.toggleTodo(id, userId);
-        res.redirect('/todos');
+        res.status(200).json({ 
+            success: true, 
+            message: 'Thay đổi trạng thái thành công' 
+        });
     } catch (err) {
         console.error(err.message);
-        res.status(500).send('Lỗi Server');
+        res.status(500).json({ 
+            success: false, 
+            error: 'Lỗi Server' 
+        });
     }
 };

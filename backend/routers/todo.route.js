@@ -5,7 +5,7 @@ import { authenticateJWT } from '../src/app/middlewares/auth.middleware.js';
 const router = express.Router();
 router.use(authenticateJWT);
 
-router.get('/', todoController.renderTodos);
+router.get('/', todoController.getTodos);
 router.post('/', todoController.createNewTodo);
 router.post('/:id/delete', todoController.deleteTodoById);
 router.post('/:id/toggle', todoController.toggleTodoById);
